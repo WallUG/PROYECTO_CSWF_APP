@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
-  base: '/PROYECTO_CSWF_APP/edit/test-api'
+  base: '/PROYECTO_CSWF_APP'
 })
