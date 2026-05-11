@@ -3,10 +3,10 @@
 
 class Database {
     // Datos actualizados según el panel de hosting
-    private $host = "sql107.infinityfree.com"; 
-    private $db_name = "if0_41884183_proyecto_cswf";
-    private $username = "if0_41884183";
-    private $password = "yqeFcA4VESiv";
+    private $host = "mysql-pruebascsf.alwaysdata.net";
+    private $db_name = "pruebascsf_if0_41884183";
+    private $username = "pruebascsf";
+    private $password = "Comportamiento6-7"; 
     public $conn;
 
     public function getConnection() {
