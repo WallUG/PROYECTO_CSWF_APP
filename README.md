@@ -13,6 +13,13 @@ El proyecto ya avanzó hacia un modelo de login y registro completo. Ahora:
 
 ## Uso
 
+### Tecnologías y entorno de desarrollo
+Este proyecto utiliza:
+- Frontend: React + JavaScript + Vite
+- Backend: PHP + Apache
+- Base de datos: MySQL
+- IDE recomendado: Visual Studio Code
+
 ### Despliegue remoto
 El frontend remoto usa GitHub Pages para la interfaz, mientras que el backend y la base de datos se alojan en `https://pruebascsf.alwaysdata.net/`.
 
@@ -26,6 +33,16 @@ Esto permite ejecutar:
 #### Requisitos
 - Docker instalado
 - Docker Compose instalado
+- Visual Studio Code (recomendado)
+
+#### ¿No sabes cómo instalar Docker?
+1. Visita https://www.docker.com/get-started y descarga Docker Desktop para Windows.
+2. Sigue los pasos de instalación y asegúrate de habilitar WSL 2 si tu sistema lo solicita.
+3. Para Docker Compose, la mayoría de instalaciones modernas de Docker Desktop ya lo incluyen.
+
+Si prefieres instrucciones rápidas:
+- Documentación de Docker Desktop: https://docs.docker.com/desktop/
+- Documentación de Docker Compose: https://docs.docker.com/compose/install/
 
 #### Pasos para ejecutar en local
 1. Abre una terminal en la raíz del repositorio.
