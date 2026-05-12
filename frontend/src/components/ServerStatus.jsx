@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 function ServerStatus() {
+  // Estado devuelto por el backend: 'ok' o cualquier otro valor de error
   const [serverStatus, setServerStatus] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -14,7 +15,7 @@ function ServerStatus() {
         setError(null)
 
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/status_server.php`,
+          `${import.meta.env.VITE_API_URL}/status`,
           { signal: controller.signal }
         )
 

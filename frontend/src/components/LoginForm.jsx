@@ -1,10 +1,19 @@
 import { useState } from 'react'
 
 function LoginForm() {
+  // mode = 'login' o 'register'
   const [mode, setMode] = useState('login')
-  const [username, setUsername] = useState('')
+
+  // Identificador del login: puede ser nombre de usuario o correo
+  const [identifier, setIdentifier] = useState('')
+
+  // Campo extra requerido solo en el formulario de registro
   const [email, setEmail] = useState('')
+
+  // Contraseña para login o registro
   const [password, setPassword] = useState('')
+
+  // Estado de envío para mostrar feedback mientras se procesa la petición
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
@@ -15,11 +24,12 @@ function LoginForm() {
     setSuccessMessage('')
     setIsSubmitting(true)
 
-    const endpoint = mode === 'register' ? 'register.php' : 'login.php'
+    // Elegimos la ruta correcta del backend según el modo actual
+    const endpoint = mode === 'register' ? 'register' : 'login'
     const payload =
       mode === 'register'
-        ? { username, email, password }
-        : { username, password }
+        ? { username: identifier, email, password }
+        : { identifier, password }
 
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/${endpoint}`, {
@@ -39,7 +49,7 @@ function LoginForm() {
 
       if (data.success && data.status === 'ok') {
         setSuccessMessage(data.message || (mode === 'register' ? 'Registro exitoso.' : 'Inicio de sesión exitoso.'))
-        setUsername('')
+        setIdentifier('')
         setEmail('')
         setPassword('')
         return
@@ -65,12 +75,12 @@ function LoginForm() {
 
       <form onSubmit={handleSubmit}>
         <label>
-          Usuario:
+          {mode === 'register' ? 'Usuario:' : 'Usuario o correo:'}
           <input
             type="text"
-            name="username"
-            value={username}
-            onChange={event => setUsername(event.target.value)}
+            name="identifier"
+            value={identifier}
+            onChange={event => setIdentifier(event.target.value)}
             required
           />
         </label>
