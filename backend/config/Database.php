@@ -2,11 +2,11 @@
 // Archivo: /config/Database.php
 
 class Database {
-    // Datos actualizados según el panel de hosting
-    private $host = "mysql-pruebascsf.alwaysdata.net";
-    private $db_name = "pruebascsf_if0_41884183";
-    private $username = "pruebascsf";
-    private $password = "Comportamiento6-7"; 
+    // La configuración usa variables de entorno para soportar local y desplegado.
+    private $host = getenv('DB_HOST') ?: 'mysql';
+    private $db_name = getenv('DB_NAME') ?: 'pruebascsf_if0_41884183';
+    private $username = getenv('DB_USER') ?: 'pruebascsf';
+    private $password = getenv('DB_PASSWORD') ?: 'Comportamiento6-7';
     public $conn;
 
     public function getConnection() {
