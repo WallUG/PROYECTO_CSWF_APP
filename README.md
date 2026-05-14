@@ -15,6 +15,16 @@ El proyecto ya avanzó hacia un modelo de login y registro completo. Ahora:
 - la capa de datos está organizada con un modelo `Usuario` que busca usuarios y crea nuevos registros,
 - la arquitectura ya separa claramente frontend, backend y base de datos.
 
+### Avance semana cuatro (protección de rutas y orden de acceso)
+En la semana cuatro se trabajó en organizar el flujo de acceso y asegurar que el módulo de clientes solo sea visible después de un login válido de usuario administrador.
+
+- El app ahora redirige primero a la pantalla de login.
+- El dashboard y las opciones de clientes no se muestran antes de iniciar sesión.
+- Se añadió un contexto de autenticación para mantener el estado del usuario en React.
+- Solo los usuarios con `role: Admin` pueden acceder a `/clientes` y a los formularios de creación/edición.
+- Las rutas no autorizadas redirigen correctamente o muestran una página de acceso denegado.
+- Esto mejora el orden del frontend: login primero, dashboard después del login exitoso.
+
 ## Uso
 
 ### Tecnologías y entorno de desarrollo
@@ -85,9 +95,10 @@ localhost:3306
 
 #### Detalle de la configuración local
 
-- El servicio `frontend` usa `VITE_API_URL=http://backend`, de modo que las llamadas de la UI se resuelven dentro de la red de Docker hacia el backend.
+- El servicio `frontend` usa `VITE_API_URL=http://localhost:8080`, de modo que el navegador en tu máquina accede al backend a través del puerto publicado.
 - El servicio `backend` usa variables de entorno para conectarse a MySQL y puede ejecutarse en local sin modificar el código PHP.
 - El servicio `mysql` inicializa la base de datos con el esquema definido en `mysql/SISTEMA DE GESTIÓN DE TALLER.sql`.
+- Recuerda: MySQL no se accede por navegador, se conecta con un cliente de base de datos en `localhost:3306`.
 
 ### Notas
 

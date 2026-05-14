@@ -341,3 +341,147 @@ body {
     min-height: 42px;
   }
 }
+
+.main-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 0 6px;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.main-header nav {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.main-header nav a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: background 0.2s ease;
+}
+
+.main-header nav a:hover {
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.cliente-page,
+.cliente-form-page {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 26px 28px;
+  box-shadow: var(--shadow);
+}
+
+.cliente-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.cliente-header button,
+.cliente-form-page button {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.cliente-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.cliente-table th,
+.cliente-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.cliente-table th {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.cliente-table tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cliente-table button {
+  margin-right: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  color: var(--text);
+}
+
+.confirm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+
+.confirm-modal {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 24px;
+  width: min(95vw, 420px);
+  box-shadow: var(--shadow);
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.confirm-button,
+.cancel-button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background: #ef4444;
+  color: white;
+}
+
+.cancel-button {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .main-header {
+    padding: 12px 0 4px;
+  }
+
+  .cliente-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cliente-table th,
+  .cliente-table td {
+    padding: 10px 8px;
+  }
+}

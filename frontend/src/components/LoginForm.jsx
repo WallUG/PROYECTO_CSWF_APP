@@ -1,6 +1,11 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 function LoginForm() {
+  const navigate = useNavigate()
+  const { login } = useAuth()
+
   // mode = 'login' o 'register'
   const [mode, setMode] = useState('login')
 
@@ -52,6 +57,15 @@ function LoginForm() {
         setIdentifier('')
         setEmail('')
         setPassword('')
+
+        if (mode === 'login') {
+          if (data.user?.role === 'Admin') {
+            login(data.user)
+            navigate('/clientes')
+          } else {
+            setErrorMessage('Acceso restringido: solo administradores pueden ver esta sección.')
+          }
+        }
         return
       }
 
