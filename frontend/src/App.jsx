@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom'
 import './App.css'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import ServerStatus from './components/ServerStatus'
@@ -83,9 +83,9 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/PROYECTO_CSWF_APP">
+      <Router>
         <AppContent />
-      </BrowserRouter>
+      </Router>
     </AuthProvider>
   )
 }
