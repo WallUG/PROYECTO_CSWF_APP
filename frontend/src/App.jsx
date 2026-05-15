@@ -1,30 +1,93 @@
-import { useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
 import './App.css'
+import { AuthProvider, useAuth } from './context/AuthContext'
+import ServerStatus from './components/ServerStatus'
+import LoginForm from './components/LoginForm'
+import ClienteListPage from './pages/ClienteListPage'
+import ClienteFormPage from './pages/ClienteFormPage'
+import UnauthorizedPage from './pages/UnauthorizedPage'
 
-function App() {
+function ProtectedRoute({ children, adminOnly = false }) {
+  const { user } = useAuth()
 
-  const [data, setData] = useState(null);
+  if (!user) {
+    return <Navigate to="/login" replace />
+  }
 
-  useEffect(() => {
+  if (adminOnly && user.role !== 'Admin') {
+    return <UnauthorizedPage />
+  }
 
-    fetch(`${import.meta.env.VITE_API_URL}/test.php`)
-      .then(res => res.json())
-      .then(data => setData(data))
-      .catch(err => console.error(err));
+  return children
+}
 
-  }, []);
+function AppContent() {
+  const { user, logout } = useAuth()
 
   return (
-    <div>
+    <div className="app-root">
+      <header className="main-header">
+        <div>
+          <h1>Gestión de Taller</h1>
+          <p>Estado del servidor y panel de clientes</p>
+        </div>
+        {user && (
+          <nav>
+            {user.role === 'Admin' && <Link to="/clientes">Clientes</Link>}
+            <button type="button" className="logout-button" onClick={logout}>
+              Cerrar sesión
+            </button>
+          </nav>
+        )}
+      </header>
 
-      <h1>Prueba Backend</h1>
+      {user && <ServerStatus />}
 
-      <pre>
-        {JSON.stringify(data, null, 2)}
-      </pre>
-
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <Navigate to="/clientes" replace /> : <Navigate to="/login" replace />}
+        />
+        <Route path="/login" element={user ? <Navigate to="/clientes" replace /> : <LoginForm />} />
+        <Route
+          path="/clientes"
+          element={
+            <ProtectedRoute adminOnly>
+              <ClienteListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/clientes/nuevo"
+          element={
+            <ProtectedRoute adminOnly>
+              <ClienteFormPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/clientes/:id"
+          element={
+            <ProtectedRoute adminOnly>
+              <ClienteFormPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
     </div>
-  );
+  )
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </AuthProvider>
+  )
 }
 
 export default App;

@@ -161,7 +161,7 @@
   }
 }
 
-.ticks {
+ticks {
   position: relative;
   width: 100%;
 
@@ -180,5 +180,350 @@
   &::after {
     right: 0;
     border-right-color: var(--border);
+  }
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #0f172a;
+  --surface: rgba(15, 23, 42, 0.95);
+  --surface-strong: rgba(15, 23, 42, 0.98);
+  --border: rgba(148, 163, 184, 0.18);
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --success: #4ade80;
+  --error: #f87171;
+  --shadow: 0 24px 80px rgba(15, 23, 42, 0.35);
+}
+
+body {
+  background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 35%),
+    #020617;
+  color: var(--text);
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.app-root {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.server-status,
+.login-form,
+.cliente-page,
+.cliente-form-page {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 26px 28px;
+  box-shadow: var(--shadow);
+}
+
+.server-status h2,
+.login-form h1 {
+  margin: 0 0 14px;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+}
+
+.server-status p,
+.login-form p {
+  margin: 0 0 24px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.login-form label {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+  font-size: 0.97rem;
+  color: var(--text);
+}
+
+.login-form input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 14px;
+  padding: 0 14px;
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.login-form input:focus {
+  outline: 2px solid rgba(56, 189, 248, 0.35);
+  outline-offset: 2px;
+  border-color: rgba(56, 189, 248, 0.65);
+}
+
+.login-form {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.login-form form {
+  display: grid;
+  gap: 16px;
+}
+
+.login-form button,
+.auth-switch button {
+  cursor: pointer;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-size: 0.98rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.login-form button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #0f172a;
+  font-weight: 700;
+  box-shadow: 0 14px 30px rgba(56, 189, 248, 0.18);
+}
+
+.login-form button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.login-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.auth-switch button {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 10px 16px;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.18);
+}
+
+.auth-switch button:hover {
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.08);
+}
+
+.error-message,
+.success-message {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-size: 0.98rem;
+}
+
+.error-message {
+  background: rgba(248, 113, 113, 0.12);
+  color: #fecaca;
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+.success-message {
+  background: rgba(74, 222, 128, 0.14);
+  color: #d1fae5;
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+
+@media (max-width: 640px) {
+  .app-root {
+    padding: 24px 16px 30px;
+  }
+
+  .server-status,
+  .login-form {
+    padding: 22px 20px;
+  }
+
+  .login-form input {
+    min-height: 42px;
+  }
+}
+
+.main-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 0 6px;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.main-header nav {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.main-header nav a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: background 0.2s ease;
+}
+
+.main-header nav a:hover {
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.main-header nav button,
+.logout-button,
+.cliente-header button,
+.cliente-form-page button,
+.login-form button,
+.auth-switch button {
+  cursor: pointer;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 0.98rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.main-header nav button,
+.logout-button {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.18);
+}
+
+.main-header nav button:hover,
+.logout-button:hover {
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.cliente-page,
+.cliente-form-page {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 26px 28px;
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+
+.cliente-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 720px;
+}
+
+.cliente-table th,
+.cliente-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  word-break: break-word;
+}
+
+.cliente-table th {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.cliente-table tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cliente-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.cliente-header button,
+.cliente-form-page button {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.cliente-table button {
+  margin-right: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  color: var(--text);
+}
+
+.confirm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+
+.confirm-modal {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 24px;
+  width: min(95vw, 420px);
+  box-shadow: var(--shadow);
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.confirm-button,
+.cancel-button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background: #ef4444;
+  color: white;
+}
+
+.cancel-button {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .main-header {
+    padding: 12px 0 4px;
+  }
+
+  .cliente-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cliente-table th,
+  .cliente-table td {
+    padding: 10px 8px;
   }
 }
