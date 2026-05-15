@@ -423,54 +423,88 @@ body {
 }
 
 .cliente-form-page {
-  max-width: 760px;
+  max-width: 780px;
   margin: 0 auto;
 }
 
 .cliente-form-page h1 {
-  margin-bottom: 18px;
+  margin-bottom: 24px;
   text-align: center;
+  font-size: 2rem;
+}
+
+.cliente-form-page form {
+  display: grid;
+  gap: 24px;
 }
 
 .cliente-form-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px 24px;
 }
 
 .form-group {
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
 
 .form-group span {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
 }
 
 .cliente-form-page input {
   width: 100%;
-  min-height: 44px;
+  min-height: 48px;
   border: 1px solid rgba(148, 163, 184, 0.24);
-  border-radius: 14px;
-  padding: 0 14px;
+  border-radius: 12px;
+  padding: 12px 16px;
   background: rgba(15, 23, 42, 0.95);
   color: var(--text);
+  font-size: 0.98rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cliente-form-page input::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+.cliente-form-page input:focus {
+  outline: none;
+  border-color: rgba(56, 189, 248, 0.65);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
 }
 
 .form-actions {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   justify-content: flex-end;
   flex-wrap: wrap;
-  margin-top: 22px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
 }
 
 .form-actions button {
-  min-width: 180px;
-  padding: 12px 20px;
+  min-width: 160px;
+  padding: 12px 24px;
   border-radius: 999px;
   font-weight: 700;
+  font-size: 0.96rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-actions button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.2);
+}
+
+.cliente-form-page button[type="submit"] {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #0f172a;
 }
 
 .cancel-button {
@@ -479,13 +513,22 @@ body {
   border: 1px solid rgba(148, 163, 184, 0.18);
 }
 
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 @media (max-width: 780px) {
+  .cliente-form-page {
+    max-width: 100%;
+  }
+
   .cliente-form-grid {
     grid-template-columns: 1fr;
+    gap: 18px 20px;
   }
 
   .form-actions {
-    justify-content: stretch;
+    flex-direction: column-reverse;
   }
 
   .form-actions button {
