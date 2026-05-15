@@ -83,7 +83,7 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/PROYECTO_CSWF_APP">
         <AppContent />
       </BrowserRouter>
     </AuthProvider>
