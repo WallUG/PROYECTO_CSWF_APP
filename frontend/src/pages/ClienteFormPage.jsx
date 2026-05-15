@@ -80,62 +80,79 @@ function ClienteFormPage() {
         <p>Cargando cliente...</p>
       ) : (
         <form onSubmit={handleSubmit}>
-          <label>
-            Cédula:
-            <input
-              type="text"
-              name="cedula"
-              value={form.cedula}
-              onChange={handleChange}
-              required
-            />
-          </label>
+          <div className="cliente-form-grid">
+            <label className="form-group">
+              <span>Cédula</span>
+              <input
+                type="text"
+                name="cedula"
+                value={form.cedula}
+                onChange={handleChange}
+                required
+                placeholder="Ingrese cédula"
+                autoComplete="off"
+              />
+            </label>
 
-          <label>
-            Nombres:
-            <input
-              type="text"
-              name="nombres"
-              value={form.nombres}
-              onChange={handleChange}
-              required
-            />
-          </label>
+            <label className="form-group">
+              <span>Nombres</span>
+              <input
+                type="text"
+                name="nombres"
+                value={form.nombres}
+                onChange={handleChange}
+                required
+                placeholder="Nombres completos"
+                autoComplete="name"
+              />
+            </label>
 
-          <label>
-            Teléfono:
-            <input
-              type="text"
-              name="telefono"
-              value={form.telefono}
-              onChange={handleChange}
-            />
-          </label>
+            <label className="form-group">
+              <span>Teléfono</span>
+              <input
+                type="tel"
+                name="telefono"
+                value={form.telefono}
+                onChange={handleChange}
+                placeholder="Número de teléfono"
+                autoComplete="tel"
+              />
+            </label>
 
-          <label>
-            Dirección:
-            <input
-              type="text"
-              name="direccion"
-              value={form.direccion}
-              onChange={handleChange}
-            />
-          </label>
+            <label className="form-group">
+              <span>Dirección</span>
+              <input
+                type="text"
+                name="direccion"
+                value={form.direccion}
+                onChange={handleChange}
+                placeholder="Dirección"
+                autoComplete="street-address"
+              />
+            </label>
 
-          <label>
-            Correo electrónico:
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-          </label>
+            <label className="form-group">
+              <span>Correo electrónico</span>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                placeholder="nombre@dominio.com"
+                autoComplete="email"
+              />
+            </label>
+          </div>
 
-          <button type="submit" disabled={submitting}>
-            {submitting ? 'Guardando...' : isEditMode ? 'Actualizar cliente' : 'Crear cliente'}
-          </button>
+          <div className="form-actions">
+            <button type="submit" disabled={submitting}>
+              {submitting ? 'Guardando...' : isEditMode ? 'Actualizar cliente' : 'Crear cliente'}
+            </button>
+            <button type="button" className="cancel-button" onClick={() => navigate('/clientes')}>
+              Volver
+            </button>
+          </div>
         </form>
       )}
 
