@@ -438,22 +438,34 @@ body {
   gap: 24px;
 }
 
-.cliente-form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px 24px;
+/* El campo de email ocupa todo el ancho */
+.cliente-form-grid .form-group:last-child {
+  grid-column: 1 / -1;
 }
 
 .form-group {
-  display: grid;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .form-group span {
+  font-size: 0.85rem;
   color: var(--text-muted);
-  font-size: 0.92rem;
-  font-weight: 500;
-  letter-spacing: 0.3px;
+}
+
+.form-group input {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--accent);
 }
 
 .cliente-form-page input {
@@ -523,8 +535,9 @@ body {
   }
 
   .cliente-form-grid {
-    grid-template-columns: 1fr;
-    gap: 18px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
 
   .form-actions {
