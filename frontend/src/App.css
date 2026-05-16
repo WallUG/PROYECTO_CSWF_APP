@@ -368,6 +368,7 @@ body {
 }
 
 .main-header nav {
+  align-self: center;
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
@@ -423,7 +424,7 @@ body {
 }
 
 .cliente-form-page {
-  max-width: 780px;
+  /*max-width: 780px;*/
   /*!margin: 0 auto;*/
 }
 
