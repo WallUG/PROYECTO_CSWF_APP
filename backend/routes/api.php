@@ -13,7 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
-$route = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '';
+
+// Extraer la ruta adecuadamente soportando .htaccess o PHP Built-in server
+if (isset($_GET['url'])) {
+    $route = rtrim($_GET['url'], '/');
+} else {
+    // Fallback: extraer ruta desde REQUEST_URI
+    $route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+}
+// Limpiar prefijo en caso de que lo lea incluyéndolo (ej. carpeta /public/)
+$route = str_replace(['public/', '/public/'], '', $route);
+$route = trim($route, '/');
 
 switch ($route) {
     case 'login':
