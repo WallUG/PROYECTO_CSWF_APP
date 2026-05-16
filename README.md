@@ -25,8 +25,9 @@ En la semana cuatro se trabajó en organizar el flujo de acceso y asegurar que e
 - Las rutas no autorizadas redirigen correctamente o muestran una página de acceso denegado.
 - Esto mejora el orden del frontend: login primero, dashboard después del login exitoso.
 
-### Avance semana cinco (Tolerancia a Fallos y Gestión de Vehículos)
-En esta semana se implementó la gestión completa de Vehículos integrada con la de Clientes, aplicando un enfoque estructurado de **Tolerancia a Fallos**.
+### Avance semana cinco (Seguridad JWT, Tolerancia a Fallos y Gestión de Vehículos)
+En esta semana se implementó la gestión completa de Vehículos integrada con la de Clientes, aplicando un enfoque de seguridad y un manejo estructurado de **Tolerancia a Fallos**.
+- **Autenticación Segura (JWT)**: Se protegió el API implementando tokens *JSON Web Token* (JWT). Al iniciar sesión exitosamente (`AuthController`), el servidor firma y emite un token válido por 24h. Las rutas de la API de clientes y vehículos ahora están protegidas por un `AuthMiddleware` que comprueba la cabecera `Authorization: Bearer <token>` rechazando accesos no autorizados con un error 401. El frontend almacena este token seguro en el `localStorage` e inyecta la cabecera en cada petición `fetch` desde sus servicios.
 - **Gestión de Vehículos**: Se crearon rutinas CRUD en backend (`VehiculoController.php`, `Vehiculo.php`) y vistas frontend (`VehiculoListPage.jsx`, `VehiculoFormPage.jsx`).
 - **Verificación de Esquema DB**: El backend ahora corresponde estrictamente a la tabla `vehiculo` referenciando `id_cliente` con cascada en borrado, incluyendo kilometraje, marca, modelo, año y color.
 - **Tolerancia a fallos en el Backend**: Se añadieron bloques `try-catch` encapsulando cada transacción a base de datos (tanto en la clase abstracta BD, controladores como *ClienteController* y *VehiculoController*, y los Modelos *Cliente* y *Vehiculo*). Los errores imprevistos (base de datos caída o inconsistencias) se capturan y son respondidos como JSON code 500, evitando cierres abruptos (Fatal errors) del lado de Apache o PHP.
