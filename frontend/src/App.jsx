@@ -5,6 +5,8 @@ import ServerStatus from './components/ServerStatus'
 import LoginForm from './components/LoginForm'
 import ClienteListPage from './pages/ClienteListPage'
 import ClienteFormPage from './pages/ClienteFormPage'
+import VehiculoListPage from './pages/VehiculoListPage'
+import VehiculoFormPage from './pages/VehiculoFormPage'
 import UnauthorizedPage from './pages/UnauthorizedPage'
 
 function ProtectedRoute({ children, adminOnly = false }) {
@@ -33,7 +35,12 @@ function AppContent() {
         </div>
         {user && (
           <nav>
-            {user.role === 'Admin' && <Link to="/clientes">Clientes</Link>}
+            {user.role === 'Admin' && (
+              <>
+                <Link to="/clientes">Clientes</Link>
+                <Link to="/vehiculos">Vehículos</Link>
+              </>
+            )}
             <button type="button" className="logout-button" onClick={logout}>
               Cerrar sesión
             </button>
@@ -70,6 +77,30 @@ function AppContent() {
           element={
             <ProtectedRoute adminOnly>
               <ClienteFormPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vehiculos"
+          element={
+            <ProtectedRoute adminOnly>
+              <VehiculoListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vehiculos/nuevo"
+          element={
+            <ProtectedRoute adminOnly>
+              <VehiculoFormPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vehiculos/:id"
+          element={
+            <ProtectedRoute adminOnly>
+              <VehiculoFormPage />
             </ProtectedRoute>
           }
         />

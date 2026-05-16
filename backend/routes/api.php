@@ -40,6 +40,12 @@ switch ($route) {
         $controller->processRequest($requestMethod);
         break;
 
+    case 'vehiculos':
+        require_once __DIR__ . '/../controllers/VehiculoController.php';
+        $controller = new VehiculoController();
+        $controller->processRequest($requestMethod);
+        break;
+
     case '':
         http_response_code(200);
         echo json_encode(["message" => "API del Taller Automotriz Funcionando :)"]);

@@ -8,9 +8,13 @@ class ClienteController {
     private $cliente;
 
     public function __construct() {
-        $database = new Database();
-        $this->db = $database->getConnection();
-        $this->cliente = new Cliente($this->db);
+        try {
+            $database = new Database();
+            $this->db = $database->getConnection();
+            $this->cliente = new Cliente($this->db);
+        } catch (Exception $e) {
+            $this->jsonResponse(['error' => 'Fallo de conexión a la base de datos'], 500);
+        }
     }
 
     private function jsonResponse(array $payload, int $statusCode = 200): void {
@@ -25,39 +29,60 @@ class ClienteController {
         return is_array($data) ? $data : [];
     }
 
+    /**
+     * Procesa la petición previniendo fallos críticos.
+     */
     public function processRequest($method) {
-        switch ($method) {
-            case 'GET':
-                if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-                    $this->getCliente((int) $_GET['id']);
-                } else {
-                    $this->getAllClientes();
-                }
-                break;
-            case 'POST':
-                $this->createCliente();
-                break;
-            case 'PUT':
-                $this->updateCliente();
-                break;
-            case 'DELETE':
-                $this->deleteCliente();
-                break;
-            default:
-                $this->jsonResponse(['error' => 'Método HTTP no permitido'], 405);
-                break;
+        try {
+            switch ($method) {
+                case 'GET':
+                    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+                        $this->getCliente((int) $_GET['id']);
+                    } else {
+                        $this->getAllClientes();
+                    }
+                    break;
+                case 'POST':
+                    $this->createCliente();
+                    break;
+                case 'PUT':
+                    $this->updateCliente();
+                    break;
+                case 'DELETE':
+                    $this->deleteCliente();
+                    break;
+                default:
+                    $this->jsonResponse(['error' => 'Método HTTP no permitido'], 405);
+                    break;
+            }
+        } catch (Exception $e) {
+            error_log("Fallo crítico en ClienteController: " . $e->getMessage());
+            $this->jsonResponse(['error' => 'Error interno del servidor en procesamiento de clientes'], 500);
         }
     }
 
+    /**
+     * Obtiene todos los clientes
+     */
     private function getAllClientes() {
         $stmt = $this->cliente->getAll();
+        if ($stmt === null) {
+            $this->jsonResponse(['error' => 'No se pudo obtener la lista de clientes'], 500);
+        }
         $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $this->jsonResponse($clientes, 200);
     }
 
+    /**
+     * Obtiene cliente por ID
+     */
     private function getCliente(int $id) {
         $cliente = $this->cliente->getById($id);
 
+        if ($cliente === false) {
+            $this->jsonResponse(['error' => 'Fallo al buscar el cliente'], 500);
+        }
+        
         if (!$cliente) {
             $this->jsonResponse(['error' => 'Cliente no encontrado'], 404);
         }
@@ -65,6 +90,9 @@ class ClienteController {
         $this->jsonResponse($cliente, 200);
     }
 
+    /**
+     * Crea un nuevo cliente
+     */
     private function createCliente() {
         $request = $this->getRequestBody();
         $cedula = trim((string) ($request['cedula'] ?? ''));

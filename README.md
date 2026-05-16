@@ -25,6 +25,14 @@ En la semana cuatro se trabajó en organizar el flujo de acceso y asegurar que e
 - Las rutas no autorizadas redirigen correctamente o muestran una página de acceso denegado.
 - Esto mejora el orden del frontend: login primero, dashboard después del login exitoso.
 
+### Avance semana cinco (Tolerancia a Fallos y Gestión de Vehículos)
+En esta semana se implementó la gestión completa de Vehículos integrada con la de Clientes, aplicando un enfoque estructurado de **Tolerancia a Fallos**.
+- **Gestión de Vehículos**: Se crearon rutinas CRUD en backend (`VehiculoController.php`, `Vehiculo.php`) y vistas frontend (`VehiculoListPage.jsx`, `VehiculoFormPage.jsx`).
+- **Verificación de Esquema DB**: El backend ahora corresponde estrictamente a la tabla `vehiculo` referenciando `id_cliente` con cascada en borrado, incluyendo kilometraje, marca, modelo, año y color.
+- **Tolerancia a fallos en el Backend**: Se añadieron bloques `try-catch` encapsulando cada transacción a base de datos (tanto en la clase abstracta BD, controladores como *ClienteController* y *VehiculoController*, y los Modelos *Cliente* y *Vehiculo*). Los errores imprevistos (base de datos caída o inconsistencias) se capturan y son respondidos como JSON code 500, evitando cierres abruptos (Fatal errors) del lado de Apache o PHP.
+- **Tolerancia a fallos en Frontend**: Los métodos *fetch* contemplan fallos de conexión (ej: servidor caído o sin red). Si ocurre una excepción de red o parseo, los servicios retornan mensajes controlados (`setError` / `setErrorMessage`), los cuales son mostrados con amabilidad en UI sin crashear la interfaz ni recargar páginas.
+- **Código documentado**: Se comentaron los Modelos y Controladores detallando qué bloque de código maneja la tolerancia y la lógica aplicada en los endpoints.
+
 ## Uso
 
 ### Tecnologías y entorno de desarrollo
