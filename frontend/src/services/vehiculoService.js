@@ -75,9 +75,6 @@ export async function deleteVehiculo(id) {
     throw error
   }
 }
-    return json
-  } catch (error) {
-    console.error('Error en updateVehiculo:', error)
     throw error
   }
 }

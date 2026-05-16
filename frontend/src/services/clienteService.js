@@ -51,17 +51,3 @@ export async function deleteCliente(id) {
   })
   return handleResponse(response)
 }
-  const response = await fetch(`${baseUrl}/clientes?id=${encodeURIComponent(id)}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(cliente),
-  })
-  return handleResponse(response)
-}
-
-export async function deleteCliente(id) {
-  const response = await fetch(`${baseUrl}/clientes?id=${encodeURIComponent(id)}`, {
-    method: 'DELETE',
-  })
-  return handleResponse(response)
-}
