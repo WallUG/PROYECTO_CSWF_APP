@@ -45,12 +45,16 @@ switch ($route) {
         break;
 
     case 'clientes':
+        require_once __DIR__ . '/../middlewares/AuthMiddleware.php';
+        AuthMiddleware::checkToken(); // Protege el endpoint validando JWT
         require_once __DIR__ . '/../controllers/ClienteController.php';
         $controller = new ClienteController();
         $controller->processRequest($requestMethod);
         break;
 
     case 'vehiculos':
+        require_once __DIR__ . '/../middlewares/AuthMiddleware.php';
+        AuthMiddleware::checkToken(); // Protege el endpoint validando JWT
         require_once __DIR__ . '/../controllers/VehiculoController.php';
         $controller = new VehiculoController();
         $controller->processRequest($requestMethod);

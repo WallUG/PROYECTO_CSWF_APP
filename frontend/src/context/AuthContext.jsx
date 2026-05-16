@@ -7,19 +7,22 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('authUser')
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
+    const storedToken = localStorage.getItem('authToken')
+    if (storedUser && storedToken) {
+      setUser({ ...JSON.parse(storedUser), token: storedToken })
     }
   }, [])
 
-  function login(userData) {
-    setUser(userData)
+  function login(userData, token) {
+    setUser({ ...userData, token })
     localStorage.setItem('authUser', JSON.stringify(userData))
+    localStorage.setItem('authToken', token)
   }
 
   function logout() {
     setUser(null)
     localStorage.removeItem('authUser')
+    localStorage.removeItem('authToken')
   }
 
   return (

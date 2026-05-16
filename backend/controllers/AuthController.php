@@ -2,6 +2,7 @@
 // Archivo: /controllers/AuthController.php
 require_once __DIR__ . '/../config/Database.php';
 require_once __DIR__ . '/../models/Usuario.php';
+require_once __DIR__ . '/../middlewares/AuthMiddleware.php';
 
 class AuthController {
     private $db;
@@ -79,10 +80,14 @@ class AuthController {
             ], 401);
         }
 
+        // Generar JWT
+        $token = AuthMiddleware::generateToken($user);
+
         $this->jsonResponse([
             'success' => true,
             'status' => 'ok',
             'message' => 'Inicio de sesion exitoso.',
+            'token' => $token,
             'user' => [
                 'id' => (int) $user['id_usuario'],
                 'name' => $user['nombre'],

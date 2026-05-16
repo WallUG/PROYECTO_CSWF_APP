@@ -60,7 +60,8 @@ function LoginForm() {
 
         if (mode === 'login') {
           if (data.user?.role === 'Admin') {
-            login(data.user)
+            // Guardar usuario y JWT generado por AuthController
+            login(data.user, data.token)
             navigate('/clientes')
           } else {
             setErrorMessage('Acceso restringido: solo administradores pueden ver esta sección.')

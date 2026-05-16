@@ -424,7 +424,7 @@ body {
 
 .cliente-form-page {
   max-width: 780px;
-  margin: 0 auto;
+  /*!margin: 0 auto;*/
 }
 
 .cliente-form-page h1 {

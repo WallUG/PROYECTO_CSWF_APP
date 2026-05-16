@@ -1,9 +1,17 @@
 // src/services/vehiculoService.js
 const API_URL = import.meta.env.VITE_API_URL
 
+function getHeaders() {
+  const token = localStorage.getItem('authToken');
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+  };
+}
+
 export async function getVehiculos() {
   try {
-    const res = await fetch(`${API_URL}/vehiculos`)
+    const res = await fetch(`${API_URL}/vehiculos`, { headers: getHeaders() })
     if (!res.ok) throw new Error('Fallo al obtener vehículos')
     return await res.json()
   } catch (error) {
@@ -14,7 +22,7 @@ export async function getVehiculos() {
 
 export async function getVehiculo(id) {
   try {
-    const res = await fetch(`${API_URL}/vehiculos?id=${id}`)
+    const res = await fetch(`${API_URL}/vehiculos?id=${id}`, { headers: getHeaders() })
     if (!res.ok) throw new Error('Fallo al obtener vehículo')
     return await res.json()
   } catch (error) {
@@ -27,7 +35,7 @@ export async function createVehiculo(data) {
   try {
     const res = await fetch(`${API_URL}/vehiculos`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getHeaders(),
       body: JSON.stringify(data),
     })
     const json = await res.json()
@@ -43,11 +51,30 @@ export async function updateVehiculo(id, data) {
   try {
     const res = await fetch(`${API_URL}/vehiculos?id=${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getHeaders(),
       body: JSON.stringify(data),
     })
     const json = await res.json()
     if (!res.ok) throw new Error(json.error || 'No se pudo actualizar el vehículo')
+    return json
+  } catch (error) {
+    console.error('Error en updateVehiculo:', error)
+    throw error
+  }
+}
+
+export async function deleteVehiculo(id) {
+  try {
+    const res = await fetch(`${API_URL}/vehiculos?id=${id}`, {
+      method: 'DELETE',
+      headers: getHeaders()
+    })
+    if (!res.ok) throw new Error('Fallo al eliminar vehículo')
+  } catch (error) {
+    console.error('Error en deleteVehiculo:', error)
+    throw error
+  }
+}
     return json
   } catch (error) {
     console.error('Error en updateVehiculo:', error)
