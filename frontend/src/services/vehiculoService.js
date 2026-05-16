@@ -75,20 +75,3 @@ export async function deleteVehiculo(id) {
     throw error
   }
 }
-    throw error
-  }
-}
-
-export async function deleteVehiculo(id) {
-  try {
-    const res = await fetch(`${API_URL}/vehiculos?id=${id}`, {
-      method: 'DELETE',
-    })
-    const json = await res.json()
-    if (!res.ok) throw new Error(json.error || 'No se pudo eliminar el vehículo')
-    return json
-  } catch (error) {
-    console.error('Error en deleteVehiculo:', error)
-    throw error
-  }
-}
