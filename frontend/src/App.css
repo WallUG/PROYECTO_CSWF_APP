@@ -637,6 +637,47 @@ body {
   color: var(--text);
 }
 
+.low-stock-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(251, 191, 36, 0.12);
+  color: #fde68a;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.low-stock-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.low-stock-row {
+  background: rgba(251, 191, 36, 0.06) !important;
+}
+
+.low-stock-row:hover {
+  background: rgba(251, 191, 36, 0.1) !important;
+}
+
+.stock-low {
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.stock-critical {
+  color: #f87171;
+  font-weight: 700;
+}
+
+.stock-warning-icon {
+  font-size: 1.1rem;
+  margin-left: 4px;
+}
+
 @media (max-width: 640px) {
   .main-header {
     padding: 12px 0 4px;
