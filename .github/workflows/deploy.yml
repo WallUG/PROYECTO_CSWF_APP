@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - test-api
+      - Modulo_inventario
 
 permissions:
   contents: read
