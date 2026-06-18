@@ -7,6 +7,7 @@ on:
       - test-api
       - Modulo_inventario
       - modulo_ordenes_servicio
+      - modulo_historial_reportes
 
 permissions:
   contents: read
