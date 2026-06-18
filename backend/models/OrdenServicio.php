@@ -11,7 +11,7 @@ class OrdenServicio {
     public function getAll() {
         try {
             $query = "SELECT o.*,
-                             COALESCE((SELECT COALESCE(SUM(subtotal), 0) FROM detalle_orden WHERE id_orden = o.id_orden), 0) as total_estimado,
+                             COALESCE((SELECT COALESCE(SUM(d.cantidad * d.precio_unitario), 0) FROM detalle_orden d WHERE d.id_orden = o.id_orden), 0) as total_estimado,
                              v.placa, v.marca, v.modelo, v.id_cliente,
                              c.nombres as cliente_nombre, c.cedula as cliente_cedula,
                              u.nombre as tecnico_nombre
@@ -32,7 +32,9 @@ class OrdenServicio {
 
     public function getById(int $id) {
         try {
-            $query = "SELECT o.*, v.placa, v.marca, v.modelo, v.anio, v.color, v.id_cliente,
+            $query = "SELECT o.*,
+                             COALESCE((SELECT COALESCE(SUM(d.cantidad * d.precio_unitario), 0) FROM detalle_orden d WHERE d.id_orden = o.id_orden), 0) as total_estimado,
+                             v.placa, v.marca, v.modelo, v.anio, v.color, v.id_cliente,
                              c.nombres as cliente_nombre, c.cedula as cliente_cedula, c.telefono as cliente_telefono,
                              u.nombre as tecnico_nombre, u.id_usuario as id_tecnico_usuario
                       FROM " . $this->table_name . " o
