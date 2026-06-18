@@ -6,6 +6,7 @@
 DROP TABLE IF EXISTS detalle_orden;
 DROP TABLE IF EXISTS orden_servicio;
 DROP TABLE IF EXISTS item_catalogo;
+DROP TABLE IF EXISTS repuesto;
 DROP TABLE IF EXISTS vehiculo;
 DROP TABLE IF EXISTS tecnico;
 DROP TABLE IF EXISTS usuario;
@@ -87,6 +88,22 @@ CREATE TABLE item_catalogo (
     created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT chk_tipo_item CHECK (tipo IN ('Repuesto', 'ManoObra'))
+);
+
+-- =========================
+-- TABLA: REPUESTO (Inventario de repuestos)
+-- =========================
+CREATE TABLE repuesto (
+    id_repuesto   INT AUTO_INCREMENT PRIMARY KEY,
+    codigo        VARCHAR(30) UNIQUE,
+    nombre        VARCHAR(150) NOT NULL,
+    descripcion   VARCHAR(300),
+    precio        DECIMAL(10,2) NOT NULL,
+    stock         INT DEFAULT 0,
+    stock_minimo  INT DEFAULT 5,
+    activo        BOOLEAN DEFAULT TRUE,
+    created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- =========================

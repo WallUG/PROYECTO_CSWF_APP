@@ -34,6 +34,19 @@ En esta semana se implementó la gestión completa de Vehículos integrada con l
 - **Tolerancia a fallos en Frontend**: Los métodos *fetch* contemplan fallos de conexión (ej: servidor caído o sin red). Si ocurre una excepción de red o parseo, los servicios retornan mensajes controlados (`setError` / `setErrorMessage`), los cuales son mostrados con amabilidad en UI sin crashear la interfaz ni recargar páginas.
 - **Código documentado**: Se comentaron los Modelos y Controladores detallando qué bloque de código maneja la tolerancia y la lógica aplicada en los endpoints.
 
+## Avance de segundo Parcial
+
+### Avance semana 9 (Módulo de Gestión de Inventario - Repuestos)
+
+En esta semana se implementó el módulo de inventario de repuestos con las siguientes características:
+
+- **CRUD de repuestos**: Creación, lectura, actualización y eliminación de repuestos con campos: código, nombre, descripción, precio, stock y stock mínimo.
+- **Tabla `repuesto` en base de datos**: Nueva tabla independiente con campos `codigo` (único), `nombre`, `descripcion`, `precio`, `stock`, `stock_minimo` y `activo`.
+- **Alertas visuales de stock bajo**: Banner superior que muestra la cantidad de repuestos con stock por debajo del mínimo, resaltado de filas en la tabla con color amarillo, y color naranja/rojo en la celda de stock según la criticidad.
+- **Protección JWT**: La ruta `/api/repuestos` está protegida por `AuthMiddleware`, solo accesible con token válido.
+- **Tolerancia a fallos**: `try-catch` en modelo y controlador PHP, manejo de errores de red en el frontend.
+- **Endpoints API**: `GET /repuestos` (lista), `GET /repuestos?id=N` (detalle), `GET /repuestos?low_stock=1` (stock bajo), `POST /repuestos`, `PUT /repuestos?id=N`, `DELETE /repuestos?id=N`.
+
 ## Uso
 
 ### Tecnologías y entorno de desarrollo

@@ -7,6 +7,8 @@ import ClienteListPage from './pages/ClienteListPage'
 import ClienteFormPage from './pages/ClienteFormPage'
 import VehiculoListPage from './pages/VehiculoListPage'
 import VehiculoFormPage from './pages/VehiculoFormPage'
+import RepuestoListPage from './pages/RepuestoListPage'
+import RepuestoFormPage from './pages/RepuestoFormPage'
 import UnauthorizedPage from './pages/UnauthorizedPage'
 
 function ProtectedRoute({ children, adminOnly = false }) {
@@ -39,6 +41,7 @@ function AppContent() {
               <>
                 <Link to="/clientes">Clientes</Link>
                 <Link to="/vehiculos">Vehículos</Link>
+                <Link to="/repuestos">Repuestos</Link>
               </>
             )}
             <button type="button" className="logout-button" onClick={logout}>
@@ -101,6 +104,30 @@ function AppContent() {
           element={
             <ProtectedRoute adminOnly>
               <VehiculoFormPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/repuestos"
+          element={
+            <ProtectedRoute adminOnly>
+              <RepuestoListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/repuestos/nuevo"
+          element={
+            <ProtectedRoute adminOnly>
+              <RepuestoFormPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/repuestos/:id"
+          element={
+            <ProtectedRoute adminOnly>
+              <RepuestoFormPage />
             </ProtectedRoute>
           }
         />
