@@ -6,6 +6,7 @@ on:
       - main
       - test-api
       - Modulo_inventario
+      - modulo_ordenes_servicio
 
 permissions:
   contents: read
