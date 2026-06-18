@@ -47,6 +47,18 @@ En esta semana se implementó el módulo de inventario de repuestos con las sigu
 - **Tolerancia a fallos**: `try-catch` en modelo y controlador PHP, manejo de errores de red en el frontend.
 - **Endpoints API**: `GET /repuestos` (lista), `GET /repuestos?id=N` (detalle), `GET /repuestos?low_stock=1` (stock bajo), `POST /repuestos`, `PUT /repuestos?id=N`, `DELETE /repuestos?id=N`.
 
+### Avance semana 10 (Módulo de Órdenes de Servicio)
+
+En esta semana se implementó el módulo de Órdenes de Servicio, el núcleo operativo del taller:
+
+- **Creación de Órdenes**: Nueva orden asociando vehículo, cliente (a través del vehículo) y técnico asignado. El número de orden se genera automáticamente con formato `ORD-YYYYMMDD-NNN`.
+- **Detalles de Servicio**: Interfaz para agregar múltiples items (repuestos o mano de obra) a la orden, con cantidad y precio unitario. El subtotal y total se calculan automáticamente.
+- **Descuento automático de stock**: Los triggers de la base de datos (`trg_after_insert_detalle`, `trg_after_delete_detalle`) descuentan y devuelven el stock del inventario (`item_catalogo`) al agregar o eliminar repuestos de una orden.
+- **Transacciones**: El backend utiliza transacciones SQL (`beginTransaction`/`commit`/`rollBack`) para asegurar que la creación de la orden y sus detalles sea atómica.
+- **Ciclo de vida de estados**: Las órdenes pueden transitar por los estados: Pendiente, En Proceso, En Espera de Repuestos, Finalizado, Entregado y Cancelado. Se implementaron badges de estado con código de colores y actualización desde el formulario de edición.
+- **Backend**: Se crearon los controladores `OrdenServicioController.php` y `TecnicoController.php`, los modelos `OrdenServicio.php`, `DetalleOrden.php` y `Tecnico.php`, y la ruta protegida `/api/ordenes`.
+- **Frontend**: Páginas `OrdenListPage.jsx` (lista con tabla de órdenes), `OrdenFormPage.jsx` (formulario con selección de cliente/vehículo/técnico y tabla dinámica de detalles), componente `OrdenTable.jsx` y servicio `ordenService.js`.
+
 ## Uso
 
 ### Tecnologías y entorno de desarrollo
