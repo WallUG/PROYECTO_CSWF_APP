@@ -140,7 +140,7 @@ function OrdenFormPage() {
     setDetalles(prev => prev.filter(d => d.id_detalle !== detalle.id_detalle))
   }
 
-  const totalCalculado = detalles.reduce((sum, d) => sum + (d.subtotal || d.cantidad * d.precio_unitario), 0)
+  const totalCalculado = detalles.reduce((sum, d) => sum + (parseFloat(d.subtotal) || d.cantidad * d.precio_unitario), 0)
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -329,7 +329,7 @@ function OrdenFormPage() {
                     <td>{d.item_tipo || 'Repuesto'}</td>
                     <td>{d.cantidad}</td>
                     <td>${parseFloat(d.precio_unitario).toFixed(2)}</td>
-                    <td>${(d.subtotal || d.cantidad * d.precio_unitario).toFixed(2)}</td>
+                    <td>${(parseFloat(d.subtotal) || d.cantidad * d.precio_unitario).toFixed(2)}</td>
                     <td>
                       <button type="button" className="btn-small-danger" onClick={() => eliminarDetalle(d)}>
                         Quitar
