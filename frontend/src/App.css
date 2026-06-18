@@ -771,6 +771,99 @@ body {
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
 }
 
+.reporte-filtros {
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.reporte-filtros .form-group {
+  flex: 1;
+  min-width: 160px;
+}
+
+.form-date {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 12px;
+  padding: 0 14px;
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--text);
+  font-size: 0.98rem;
+  box-sizing: border-box;
+}
+
+.btn-filtrar {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #0f172a;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 28px;
+  cursor: pointer;
+  height: 44px;
+  white-space: nowrap;
+}
+
+.reporte-resumen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.reporte-resumen-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+}
+
+.reporte-card-ingresos {
+  border-color: rgba(74, 222, 128, 0.3);
+  background: rgba(74, 222, 128, 0.05);
+}
+
+.reporte-numero {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.reporte-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.reporte-subtitle {
+  margin: 20px 0 14px;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.reporte-total-row {
+  background: rgba(56, 189, 248, 0.06);
+}
+
+.detalle-vehiculo-header {
+  margin-bottom: 14px;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
 @media (max-width: 640px) {
   .main-header {
     padding: 12px 0 4px;

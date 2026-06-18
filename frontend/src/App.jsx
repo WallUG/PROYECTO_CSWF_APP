@@ -11,6 +11,8 @@ import RepuestoListPage from './pages/RepuestoListPage'
 import RepuestoFormPage from './pages/RepuestoFormPage'
 import OrdenListPage from './pages/OrdenListPage'
 import OrdenFormPage from './pages/OrdenFormPage'
+import HistorialPage from './pages/HistorialPage'
+import ReportesPage from './pages/ReportesPage'
 import UnauthorizedPage from './pages/UnauthorizedPage'
 
 function ProtectedRoute({ children, adminOnly = false }) {
@@ -45,6 +47,8 @@ function AppContent() {
                 <Link to="/vehiculos">Vehículos</Link>
                 <Link to="/repuestos">Repuestos</Link>
                 <Link to="/ordenes">Órdenes</Link>
+                <Link to="/historial">Historial</Link>
+                <Link to="/reportes">Reportes</Link>
               </>
             )}
             <button type="button" className="logout-button" onClick={logout}>
@@ -155,6 +159,22 @@ function AppContent() {
           element={
             <ProtectedRoute adminOnly>
               <OrdenFormPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/historial"
+          element={
+            <ProtectedRoute adminOnly>
+              <HistorialPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reportes"
+          element={
+            <ProtectedRoute adminOnly>
+              <ReportesPage />
             </ProtectedRoute>
           }
         />
