@@ -10,7 +10,9 @@ class OrdenServicio {
 
     public function getAll() {
         try {
-            $query = "SELECT o.*, v.placa, v.marca, v.modelo, v.id_cliente,
+            $query = "SELECT o.*,
+                             COALESCE((SELECT COALESCE(SUM(subtotal), 0) FROM detalle_orden WHERE id_orden = o.id_orden), 0) as total_estimado,
+                             v.placa, v.marca, v.modelo, v.id_cliente,
                              c.nombres as cliente_nombre, c.cedula as cliente_cedula,
                              u.nombre as tecnico_nombre
                       FROM " . $this->table_name . " o

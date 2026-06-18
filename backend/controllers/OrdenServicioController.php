@@ -31,6 +31,20 @@ class OrdenServicioController {
         return is_array($data) ? $data : [];
     }
 
+    private function recalcularTotal(int $id_orden): void {
+        try {
+            $query = "UPDATE orden_servicio SET total_estimado = (
+                          SELECT COALESCE(SUM(subtotal), 0) FROM detalle_orden WHERE id_orden = :id_orden
+                      ), updated_at = CURRENT_TIMESTAMP WHERE id_orden = :id_orden2";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id_orden', $id_orden, PDO::PARAM_INT);
+            $stmt->bindParam(':id_orden2', $id_orden, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Error al recalcular total de orden $id_orden: " . $e->getMessage());
+        }
+    }
+
     public function processRequest($method) {
         try {
             switch ($method) {
@@ -135,6 +149,8 @@ class OrdenServicioController {
                 }
             }
 
+            $this->recalcularTotal($newId);
+
             $this->db->commit();
             $this->jsonResponse([
                 'message' => 'Orden de servicio creada correctamente',
@@ -215,14 +231,31 @@ class OrdenServicioController {
             $this->jsonResponse(['error' => 'No se pudo agregar el detalle a la orden'], 500);
         }
 
+        $this->recalcularTotal($id_orden);
+
         $this->jsonResponse(['message' => 'Detalle agregado correctamente', 'id_detalle' => $detalleId], 201);
     }
 
     private function removeDetalle(int $detalle_id) {
+        try {
+            $query = "SELECT id_orden FROM detalle_orden WHERE id_detalle = :id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id', $detalle_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $detalle = $stmt->fetch(PDO::FETCH_ASSOC);
+            $id_orden = $detalle ? (int)$detalle['id_orden'] : null;
+        } catch (PDOException $e) {
+            $id_orden = null;
+        }
+
         $success = $this->detalle->delete($detalle_id);
 
         if (!$success) {
             $this->jsonResponse(['error' => 'No se pudo eliminar el detalle'], 500);
+        }
+
+        if ($id_orden) {
+            $this->recalcularTotal($id_orden);
         }
 
         $this->jsonResponse(['message' => 'Detalle eliminado correctamente'], 200);
