@@ -68,6 +68,22 @@ switch ($route) {
         $controller->processRequest($requestMethod);
         break;
 
+    case 'ordenes':
+        require_once __DIR__ . '/../middlewares/AuthMiddleware.php';
+        AuthMiddleware::checkToken(); // Protege el endpoint validando JWT
+        require_once __DIR__ . '/../controllers/OrdenServicioController.php';
+        $controller = new OrdenServicioController();
+        $controller->processRequest($requestMethod);
+        break;
+
+    case 'tecnicos':
+        require_once __DIR__ . '/../middlewares/AuthMiddleware.php';
+        AuthMiddleware::checkToken(); // Protege el endpoint validando JWT
+        require_once __DIR__ . '/../controllers/TecnicoController.php';
+        $controller = new TecnicoController();
+        $controller->processRequest($requestMethod);
+        break;
+
     case '':
         http_response_code(200);
         echo json_encode(["message" => "API del Taller Automotriz Funcionando :)"]);
