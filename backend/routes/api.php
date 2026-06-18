@@ -84,6 +84,22 @@ switch ($route) {
         $controller->processRequest($requestMethod);
         break;
 
+    case 'reportes/historial':
+        require_once __DIR__ . '/../middlewares/AuthMiddleware.php';
+        AuthMiddleware::checkToken();
+        require_once __DIR__ . '/../controllers/ReporteController.php';
+        $controller = new ReporteController();
+        $controller->historial();
+        break;
+
+    case 'reportes/generales':
+        require_once __DIR__ . '/../middlewares/AuthMiddleware.php';
+        AuthMiddleware::checkToken();
+        require_once __DIR__ . '/../controllers/ReporteController.php';
+        $controller = new ReporteController();
+        $controller->generales();
+        break;
+
     case '':
         http_response_code(200);
         echo json_encode(["message" => "API del Taller Automotriz Funcionando :)"]);

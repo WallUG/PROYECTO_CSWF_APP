@@ -59,6 +59,17 @@ En esta semana se implementó el módulo de Órdenes de Servicio, el núcleo ope
 - **Backend**: Se crearon los controladores `OrdenServicioController.php` y `TecnicoController.php`, los modelos `OrdenServicio.php`, `DetalleOrden.php` y `Tecnico.php`, y la ruta protegida `/api/ordenes`.
 - **Frontend**: Páginas `OrdenListPage.jsx` (lista con tabla de órdenes), `OrdenFormPage.jsx` (formulario con selección de cliente/vehículo/técnico y tabla dinámica de detalles), componente `OrdenTable.jsx` y servicio `ordenService.js`.
 
+### Avance semana 11 (Módulo de Historial y Reportes)
+
+En esta semana se implementó el módulo de Historial y Reportes para consultar y analizar las órdenes de servicio:
+
+- **Historial de Reparaciones por Vehículo**: Vista consolidada que muestra todos los vehículos con su resumen de órdenes (totales, completadas, total gastado). Al seleccionar un vehículo se despliega el detalle completo de cada orden asociada con fechas, técnico asignado, cantidad de items y monto.
+- **Reporte General de Órdenes e Ingresos**: Panel con filtro por rango de fechas que muestra:
+  - Tarjetas resumen con total de órdenes, completadas, pendientes, en proceso, canceladas e ingresos totales.
+  - Tabla desglosada de ingresos por vehículo con total general al final.
+- **Backend**: Controlador `ReporteController.php` y modelo `Reporte.php` con endpoints protegidos `/api/reportes/historial` y `/api/reportes/generales`.
+- **Frontend**: Páginas `HistorialPage.jsx` (historial por vehículo con vista de detalle) y `ReportesPage.jsx` (reporte general con filtro de fechas y tarjetas de resumen), servicio `reporteService.js`.
+
 ## Uso
 
 ### Tecnologías y entorno de desarrollo
