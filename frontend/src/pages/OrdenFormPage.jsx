@@ -198,21 +198,21 @@ function OrdenFormPage() {
   }
 
   return (
-    <section className="cliente-form-page">
-      <h1>{isEditMode ? 'Editar orden de servicio' : 'Nueva orden de servicio'}</h1>
+    <section className="bg-surface backdrop-blur-sm border border-border-main rounded-xl p-5 px-6 shadow">
+      <h1 className="text-white font-bold text-[clamp(1.15rem,2vw,1.4rem)] m-0 mb-6">{isEditMode ? 'Editar orden de servicio' : 'Nueva orden de servicio'}</h1>
 
       {loading ? (
-        <p>Cargando datos...</p>
+        <p className="text-gray-400">Cargando datos...</p>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <div className="cliente-form-grid">
-            <label className="form-group">
-              <span>Cliente</span>
+        <form onSubmit={handleSubmit} className="grid gap-[18px]">
+          <div className="grid grid-cols-2 gap-3.5">
+            <label className="flex flex-col gap-1">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Cliente</span>
               <select
                 name="id_cliente"
                 value={selectedCliente}
                 onChange={handleClienteChange}
-                className="form-select"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border appearance-none"
               >
                 <option value="">Seleccione un cliente</option>
                 {clientes.map(c => (
@@ -221,14 +221,14 @@ function OrdenFormPage() {
               </select>
             </label>
 
-            <label className="form-group">
-              <span>Vehículo *</span>
+            <label className="flex flex-col gap-1">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Vehículo *</span>
               <select
                 name="id_vehiculo"
                 value={form.id_vehiculo}
                 onChange={handleChange}
                 required
-                className="form-select"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border appearance-none"
               >
                 <option value="">Seleccione un vehículo</option>
                 {vehiculosFiltrados.map(v => (
@@ -239,14 +239,14 @@ function OrdenFormPage() {
               </select>
             </label>
 
-            <label className="form-group">
-              <span>Técnico *</span>
+            <label className="flex flex-col gap-1">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Técnico *</span>
               <select
                 name="id_tecnico"
                 value={form.id_tecnico}
                 onChange={handleChange}
                 required
-                className="form-select"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border appearance-none"
               >
                 <option value="">Seleccione un técnico</option>
                 {tecnicos.map(t => (
@@ -256,8 +256,8 @@ function OrdenFormPage() {
             </label>
 
             {isEditMode && (
-              <label className="form-group">
-                <span>Estado</span>
+              <label className="flex flex-col gap-1">
+                <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Estado</span>
                 <select
                   name="estado"
                   value={form.estado}
@@ -270,7 +270,7 @@ function OrdenFormPage() {
                         .catch(err => setErrorMessage(err.message))
                     }
                   }}
-                  className="form-select"
+                  className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border appearance-none"
                 >
                   <option value="Pendiente">Pendiente</option>
                   <option value="En Proceso">En Proceso</option>
@@ -282,56 +282,56 @@ function OrdenFormPage() {
               </label>
             )}
 
-            <label className="form-group" style={{ gridColumn: '1 / -1' }}>
-              <span>Motivo de Ingreso *</span>
+            <label className="flex flex-col gap-1 col-span-full">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Motivo de Ingreso *</span>
               <textarea
                 name="motivo_ingreso"
                 value={form.motivo_ingreso}
                 onChange={handleChange}
                 required
-                className="form-textarea"
                 placeholder="Describa el motivo de ingreso del vehículo"
                 rows={2}
+                className="w-full px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border min-h-[60px] resize-y font-sans leading-relaxed placeholder:text-gray-500"
               />
             </label>
 
-            <label className="form-group" style={{ gridColumn: '1 / -1' }}>
-              <span>Diagnóstico Técnico</span>
+            <label className="flex flex-col gap-1 col-span-full">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Diagnóstico Técnico</span>
               <textarea
                 name="diagnostico_tecnico"
                 value={form.diagnostico_tecnico}
                 onChange={handleChange}
-                className="form-textarea"
                 placeholder="Diagnóstico del técnico (opcional)"
                 rows={2}
+                className="w-full px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border min-h-[60px] resize-y font-sans leading-relaxed placeholder:text-gray-500"
               />
             </label>
           </div>
 
-          <div className="detalles-section">
-            <h3>Detalles de la Orden</h3>
+          <div className="mt-4">
+            <h3 className="text-white font-bold text-[clamp(1rem,1.5vw,1.15rem)] m-0 mb-3">Detalles de la Orden</h3>
 
-            <table className="cliente-table" style={{ minWidth: '600px', marginBottom: '16px' }}>
+            <table className="w-full border-separate border-spacing-0 text-left min-w-[600px]">
               <thead>
                 <tr>
-                  <th>Item</th>
-                  <th>Tipo</th>
-                  <th>Cantidad</th>
-                  <th>Precio Unit.</th>
-                  <th>Subtotal</th>
-                  <th>Acción</th>
+                  <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Item</th>
+                  <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Tipo</th>
+                  <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Cantidad</th>
+                  <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Precio Unit.</th>
+                  <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Subtotal</th>
+                  <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Acción</th>
                 </tr>
               </thead>
               <tbody>
                 {detalles.map(d => (
                   <tr key={d.id_detalle}>
-                    <td>{d.item_nombre || `Item #${d.id_item}`}</td>
-                    <td>{d.item_tipo || 'Repuesto'}</td>
-                    <td>{d.cantidad}</td>
-                    <td>${parseFloat(d.precio_unitario).toFixed(2)}</td>
-                    <td>${(parseFloat(d.subtotal) || d.cantidad * d.precio_unitario).toFixed(2)}</td>
-                    <td>
-                      <button type="button" className="btn-small-danger" onClick={() => eliminarDetalle(d)}>
+                    <td className="px-3 py-2 border-b border-border-main text-sm">{d.item_nombre || `Item #${d.id_item}`}</td>
+                    <td className="px-3 py-2 border-b border-border-main text-sm">{d.item_tipo || 'Repuesto'}</td>
+                    <td className="px-3 py-2 border-b border-border-main text-sm">{d.cantidad}</td>
+                    <td className="px-3 py-2 border-b border-border-main text-sm">${parseFloat(d.precio_unitario).toFixed(2)}</td>
+                    <td className="px-3 py-2 border-b border-border-main text-sm">${(parseFloat(d.subtotal) || d.cantidad * d.precio_unitario).toFixed(2)}</td>
+                    <td className="px-3 py-2 border-b border-border-main text-sm">
+                      <button type="button" className="px-3 py-1 rounded-full text-xs bg-danger/10 text-danger border border-danger/20 cursor-pointer transition-all hover:bg-danger hover:text-white" onClick={() => eliminarDetalle(d)}>
                         Quitar
                       </button>
                     </td>
@@ -339,7 +339,7 @@ function OrdenFormPage() {
                 ))}
                 {detalles.length === 0 && (
                   <tr>
-                    <td colSpan={6} style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
+                    <td colSpan={6} className="px-3 py-2 border-b border-border-main text-sm text-center text-gray-400">
                       No hay items agregados aún
                     </td>
                   </tr>
@@ -347,17 +347,17 @@ function OrdenFormPage() {
               </tbody>
               <tfoot>
                 <tr>
-                  <td colSpan={4} style={{ textAlign: 'right', fontWeight: 700 }}>Total:</td>
-                  <td colSpan={2} style={{ fontWeight: 700 }}>${totalCalculado.toFixed(2)}</td>
+                  <td colSpan={4} className="px-3 py-2 border-b border-border-main text-sm text-right font-bold">Total:</td>
+                  <td colSpan={2} className="px-3 py-2 border-b border-border-main text-sm font-bold">${totalCalculado.toFixed(2)}</td>
                 </tr>
               </tfoot>
             </table>
 
-            <div className="nuevo-item-row">
+            <div className="flex gap-2 items-end mt-3">
               <select
                 value={nuevoItem.id_item}
                 onChange={(e) => handleSelectItem(e.target.value)}
-                className="form-select"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border appearance-none"
               >
                 <option value="">Seleccionar item</option>
                 {catalogoItems.map(item => (
@@ -372,7 +372,7 @@ function OrdenFormPage() {
                 value={nuevoItem.cantidad}
                 onChange={handleNuevoItemChange}
                 min="1"
-                className="item-cantidad-input"
+                className="w-20 h-10 px-2 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border placeholder:text-gray-500"
                 placeholder="Cant."
               />
               <input
@@ -382,28 +382,28 @@ function OrdenFormPage() {
                 onChange={handleNuevoItemChange}
                 min="0.01"
                 step="0.01"
-                className="item-precio-input"
+                className="w-28 h-10 px-2 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border placeholder:text-gray-500"
                 placeholder="Precio"
               />
-              <button type="button" className="btn-agregar-item" onClick={agregarItem}>
+              <button type="button" className="px-4 py-2 rounded-full font-bold text-sm bg-gradient-to-r from-warm to-warm-strong text-bg-deep cursor-pointer border-none shadow transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg whitespace-nowrap" onClick={agregarItem}>
                 Agregar
               </button>
             </div>
           </div>
 
-          <div className="form-actions">
-            <button type="submit" disabled={submitting}>
+          <div className="flex gap-3 justify-end flex-wrap mt-1 pt-4 border-t border-border-main">
+            <button type="submit" disabled={submitting} className="px-5 py-2 rounded-full font-bold text-sm bg-gradient-to-r from-primary to-primary-strong text-bg-deep cursor-pointer border-none shadow transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg whitespace-nowrap">
               {submitting ? 'Guardando...' : isEditMode ? 'Actualizar orden' : 'Crear orden'}
             </button>
-            <button type="button" className="cancel-button" onClick={() => navigate('/ordenes')}>
+            <button type="button" className="px-5 py-2 rounded-full font-bold text-sm bg-transparent text-gray-400 border border-border-main cursor-pointer transition-all duration-200 hover:bg-surface-2 hover:text-white hover:border-border-strong" onClick={() => navigate('/ordenes')}>
               Volver
             </button>
           </div>
         </form>
       )}
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="px-3.5 py-2.5 rounded-lg text-sm mt-3 bg-danger/10 text-danger border border-danger/20">{errorMessage}</p>}
+      {successMessage && <p className="px-3.5 py-2.5 rounded-lg text-sm mt-3 bg-success/10 text-success border border-success/20">{successMessage}</p>}
     </section>
   )
 }

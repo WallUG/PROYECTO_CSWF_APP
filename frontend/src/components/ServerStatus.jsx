@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 
 function ServerStatus() {
-  // Estado devuelto por el backend: 'ok' o cualquier otro valor de error
   const [serverStatus, setServerStatus] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -12,50 +11,40 @@ function ServerStatus() {
     async function fetchServerStatus() {
       try {
         setLoading(true)
-        setError(null)
-
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/status`,
           { signal: controller.signal }
         )
-
-        if (!response.ok) {
-          throw new Error(`Estado de respuesta ${response.status}`)
-        }
-
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
         const result = await response.json()
         setServerStatus(result.status ?? 'unknown')
       } catch (fetchError) {
-        if (fetchError.name === 'AbortError') {
-          return
-        }
-        setError('No se pudo obtener el estado del servidor')
+        if (fetchError.name === 'AbortError') return
+        setServerStatus('error')
       } finally {
         setLoading(false)
       }
     }
 
     fetchServerStatus()
-
     return () => controller.abort()
   }, [])
 
+  const isOnline = serverStatus === 'ok'
+
   return (
-    <section className="server-status">
-      <h2>Estado del servidor</h2>
-      {loading ? (
-        <p>Cargando estado del servidor...</p>
-      ) : error ? (
-        <p className="error-message">{error}</p>
-      ) : (
-        <p>
-          El servidor está{' '}
-          {serverStatus === 'ok'
-            ? 'funcionando correctamente'
-            : 'experimentando problemas'}
-        </p>
+    <div
+      className="fixed bottom-4 right-4 flex items-center gap-2 px-3.5 py-2 bg-bg-main/90 backdrop-blur-md border border-border-strong rounded-full text-sm text-gray-400 cursor-pointer z-50 shadow transition-all duration-200 select-none hover:border-primary/25"
+      onClick={() => setExpanded(!expanded)}
+    >
+      <span className={`w-[7px] h-[7px] rounded-full shrink-0 ${isOnline ? 'bg-success shadow-[0_0_8px_rgba(74,222,128,0.35)]' : 'bg-danger shadow-[0_0_8px_rgba(248,113,113,0.35)]'}`} />
+      <span>Server</span>
+      {expanded && (
+        <span className="text-xs text-white font-medium pl-1.5 border-l border-border-main">
+          {loading ? 'Verificando...' : isOnline ? 'Funcionando correctamente' : 'Experimentando problemas'}
+        </span>
       )}
-    </section>
+    </div>
   )
 }
 

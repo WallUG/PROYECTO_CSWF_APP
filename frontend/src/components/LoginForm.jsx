@@ -6,19 +6,10 @@ function LoginForm() {
   const navigate = useNavigate()
   const { login } = useAuth()
 
-  // mode = 'login' o 'register'
   const [mode, setMode] = useState('login')
-
-  // Identificador del login: puede ser nombre de usuario o correo
   const [identifier, setIdentifier] = useState('')
-
-  // Campo extra requerido solo en el formulario de registro
   const [email, setEmail] = useState('')
-
-  // Contraseña para login o registro
   const [password, setPassword] = useState('')
-
-  // Estado de envío para mostrar feedback mientras se procesa la petición
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
@@ -29,19 +20,15 @@ function LoginForm() {
     setSuccessMessage('')
     setIsSubmitting(true)
 
-    // Elegimos la ruta correcta del backend según el modo actual
     const endpoint = mode === 'register' ? 'register' : 'login'
-    const payload =
-      mode === 'register'
-        ? { username: identifier, email, password }
-        : { identifier, password }
+    const payload = mode === 'register'
+      ? { username: identifier, email, password }
+      : { identifier, password }
 
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/${endpoint}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
 
@@ -60,7 +47,6 @@ function LoginForm() {
 
         if (mode === 'login') {
           if (data.user?.role === 'Admin') {
-            // Guardar usuario y JWT generado por AuthController
             login(data.user, data.token)
             navigate('/clientes')
           } else {
@@ -80,83 +66,78 @@ function LoginForm() {
   }
 
   return (
-    <section className="login-form">
-      <h1>{mode === 'register' ? 'Crear cuenta' : 'Iniciar sesión'}</h1>
-      <p>
+    <section className="max-w-[420px] mx-auto mt-8 p-6 bg-surface backdrop-blur-sm border border-border-main rounded-xl shadow">
+      <h1 className="text-white text-xl font-bold mb-1">{mode === 'register' ? 'Crear cuenta' : 'Iniciar sesión'}</h1>
+      <p className="text-gray-400 text-sm mb-5">
         {mode === 'register'
           ? 'Registra un nuevo usuario con correo y contraseña.'
           : 'Por favor, ingresa tus credenciales para acceder a tu cuenta.'}
       </p>
 
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <label className="grid gap-1 text-sm text-white font-medium">
           {mode === 'register' ? 'Usuario:' : 'Usuario o correo:'}
           <input
             type="text"
             name="identifier"
             value={identifier}
-            onChange={event => setIdentifier(event.target.value)}
+            onChange={e => setIdentifier(e.target.value)}
             required
+            className="w-full h-[42px] px-3.5 border border-border-strong rounded-lg bg-bg-main/80 text-white text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-3 focus:ring-primary/20 box-border"
           />
         </label>
 
-        <br />
-
         {mode === 'register' && (
-          <>
-            <label>
-              Correo electrónico:
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={event => setEmail(event.target.value)}
-                required
-              />
-            </label>
-
-            <br />
-          </>
+          <label className="grid gap-1 text-sm text-white font-medium">
+            Correo electrónico:
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              className="w-full h-[42px] px-3.5 border border-border-strong rounded-lg bg-bg-main/80 text-white text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-3 focus:ring-primary/20 box-border"
+            />
+          </label>
         )}
 
-        <label>
+        <label className="grid gap-1 text-sm text-white font-medium">
           Contraseña:
           <input
             type="password"
             name="password"
             value={password}
-            onChange={event => setPassword(event.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
+            className="w-full h-[42px] px-3.5 border border-border-strong rounded-lg bg-bg-main/80 text-white text-sm transition-all duration-200 outline-none focus:border-primary focus:ring-3 focus:ring-primary/20 box-border"
           />
         </label>
 
-        <br />
-
-        <button type="submit" disabled={isSubmitting}>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full py-2.5 px-4 rounded-full font-bold text-sm bg-gradient-to-r from-primary to-primary-strong text-bg-deep shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        >
           {isSubmitting
-            ? mode === 'register'
-              ? 'Registrando...'
-              : 'Validando...'
-            : mode === 'register'
-            ? 'Registrarse'
-            : 'Iniciar sesión'}
+            ? mode === 'register' ? 'Registrando...' : 'Validando...'
+            : mode === 'register' ? 'Registrarse' : 'Iniciar sesión'}
         </button>
       </form>
 
-      <div className="auth-switch">
+      <div className="mt-4 text-center">
         {mode === 'register' ? (
-          <button type="button" onClick={() => setMode('login')}>
+          <button type="button" onClick={() => setMode('login')} className="bg-transparent text-gray-400 px-4 py-2 rounded-full border border-border-main text-sm hover:text-primary hover:border-primary/25 hover:bg-primary/10 transition-all">
             Ya tengo cuenta
           </button>
         ) : (
-          <button type="button" onClick={() => setMode('register')}>
+          <button type="button" onClick={() => setMode('register')} className="bg-transparent text-gray-400 px-4 py-2 rounded-full border border-border-main text-sm hover:text-primary hover:border-primary/25 hover:bg-primary/10 transition-all">
             Registrarse
           </button>
         )}
       </div>
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="mt-3 px-3.5 py-2.5 rounded-lg text-sm flex items-center gap-2 bg-danger/10 text-danger border border-danger/20">{errorMessage}</p>}
+      {successMessage && <p className="mt-3 px-3.5 py-2.5 rounded-lg text-sm flex items-center gap-2 bg-success/10 text-success border border-success/20">{successMessage}</p>}
     </section>
   )
 }

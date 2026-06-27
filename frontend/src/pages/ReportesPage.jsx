@@ -34,91 +34,89 @@ function ReportesPage() {
   }
 
   return (
-    <section className="cliente-page">
-      <div className="cliente-header">
-        <h1>Reporte General</h1>
+    <section className="bg-surface backdrop-blur-sm border border-border-main rounded-xl p-5 px-6 shadow">
+      <div className="flex justify-between items-center gap-3 mb-4 flex-wrap">
+        <h1 className="text-white font-bold text-[clamp(1.15rem,2vw,1.4rem)] m-0">Reporte General</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="reporte-filtros">
-        <label className="form-group">
-          <span>Desde</span>
-          <input type="date" name="desde" value={desde} onChange={e => setDesde(e.target.value)} className="form-date" />
+      <form onSubmit={handleSubmit} className="flex gap-4 items-end flex-wrap mb-[18px] pb-4 border-b border-border-main">
+        <label className="flex flex-col gap-1">
+          <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Desde</span>
+          <input type="date" name="desde" value={desde} onChange={e => setDesde(e.target.value)} className="px-3 py-2 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all duration-200 focus:border-primary focus:ring-3 focus:ring-primary/20 box-border" />
         </label>
-        <label className="form-group">
-          <span>Hasta</span>
-          <input type="date" name="hasta" value={hasta} onChange={e => setHasta(e.target.value)} className="form-date" />
+        <label className="flex flex-col gap-1">
+          <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Hasta</span>
+          <input type="date" name="hasta" value={hasta} onChange={e => setHasta(e.target.value)} className="px-3 py-2 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all duration-200 focus:border-primary focus:ring-3 focus:ring-primary/20 box-border" />
         </label>
-        <button type="submit" className="btn-filtrar" disabled={loading}>
+        <button type="submit" className="h-10 px-6 rounded-full font-bold text-sm bg-gradient-to-r from-primary to-primary-strong text-bg-deep cursor-pointer border-none shadow transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled={loading}>
           {loading ? 'Cargando...' : 'Filtrar'}
         </button>
       </form>
 
-      {error && <p className="error-message">{error}</p>}
+      {error && <p className="px-3.5 py-2.5 rounded-lg text-sm mt-3 bg-danger/10 text-danger border border-danger/20">{error}</p>}
 
       {loading ? (
-        <p>Cargando reporte...</p>
+        <p className="text-gray-400">Cargando reporte...</p>
       ) : reporte ? (
         <>
-          <div className="reporte-resumen-grid">
-            <div className="reporte-resumen-card">
-              <span className="reporte-numero">{reporte.total_ordenes}</span>
-              <span className="reporte-label">Órdenes Totales</span>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-2.5 mb-[22px]">
+            <div className="bg-surface-2/70 backdrop-blur-sm border border-border-main rounded-lg p-4 text-center transition-all duration-200 hover:border-border-strong hover:-translate-y-0.5 hover:shadow">
+              <span className="text-[1.3rem] font-extrabold text-white leading-tight block">{reporte.total_ordenes}</span>
+              <span className="text-[0.7rem] text-gray-400 uppercase tracking-wider font-semibold">Órdenes Totales</span>
             </div>
-            <div className="reporte-resumen-card">
-              <span className="reporte-numero">{reporte.ordenes_completadas}</span>
-              <span className="reporte-label">Completadas / Entregadas</span>
+            <div className="bg-surface-2/70 backdrop-blur-sm border border-border-main rounded-lg p-4 text-center transition-all duration-200 hover:border-border-strong hover:-translate-y-0.5 hover:shadow">
+              <span className="text-[1.3rem] font-extrabold text-white leading-tight block">{reporte.ordenes_completadas}</span>
+              <span className="text-[0.7rem] text-gray-400 uppercase tracking-wider font-semibold">Completadas / Entregadas</span>
             </div>
-            <div className="reporte-resumen-card">
-              <span className="reporte-numero">{reporte.ordenes_pendientes}</span>
-              <span className="reporte-label">Pendientes</span>
+            <div className="bg-surface-2/70 backdrop-blur-sm border border-border-main rounded-lg p-4 text-center transition-all duration-200 hover:border-border-strong hover:-translate-y-0.5 hover:shadow">
+              <span className="text-[1.3rem] font-extrabold text-white leading-tight block">{reporte.ordenes_pendientes}</span>
+              <span className="text-[0.7rem] text-gray-400 uppercase tracking-wider font-semibold">Pendientes</span>
             </div>
-            <div className="reporte-resumen-card">
-              <span className="reporte-numero">{reporte.ordenes_en_proceso}</span>
-              <span className="reporte-label">En Proceso</span>
+            <div className="bg-surface-2/70 backdrop-blur-sm border border-border-main rounded-lg p-4 text-center transition-all duration-200 hover:border-border-strong hover:-translate-y-0.5 hover:shadow">
+              <span className="text-[1.3rem] font-extrabold text-white leading-tight block">{reporte.ordenes_en_proceso}</span>
+              <span className="text-[0.7rem] text-gray-400 uppercase tracking-wider font-semibold">En Proceso</span>
             </div>
-            <div className="reporte-resumen-card">
-              <span className="reporte-numero">{reporte.ordenes_canceladas}</span>
-              <span className="reporte-label">Canceladas</span>
+            <div className="bg-surface-2/70 backdrop-blur-sm border border-border-main rounded-lg p-4 text-center transition-all duration-200 hover:border-border-strong hover:-translate-y-0.5 hover:shadow">
+              <span className="text-[1.3rem] font-extrabold text-white leading-tight block">{reporte.ordenes_canceladas}</span>
+              <span className="text-[0.7rem] text-gray-400 uppercase tracking-wider font-semibold">Canceladas</span>
             </div>
-            <div className="reporte-resumen-card reporte-card-ingresos">
-              <span className="reporte-numero">${parseFloat(reporte.ingresos_totales || 0).toFixed(2)}</span>
-              <span className="reporte-label">Ingresos Totales</span>
+            <div className="bg-surface-2/70 backdrop-blur-sm border border-success/20 bg-success/[0.06] rounded-lg p-4 text-center transition-all duration-200 hover:border-border-strong hover:-translate-y-0.5 hover:shadow">
+              <span className="text-[1.3rem] font-extrabold text-white leading-tight block">${parseFloat(reporte.ingresos_totales || 0).toFixed(2)}</span>
+              <span className="text-[0.7rem] text-gray-400 uppercase tracking-wider font-semibold">Ingresos Totales</span>
             </div>
           </div>
 
-          <h3 className="reporte-subtitle">Ingresos por Vehículo</h3>
-          <table className="cliente-table">
-            <thead>
+          <h3 className="mt-5 mb-2.5 text-sm font-semibold text-white">Ingresos por Vehículo</h3>
+          <table className="w-full border-separate border-spacing-0 text-left min-w-[700px]">
+            <thead className="sticky top-0 z-10">
               <tr>
-                <th>Cliente</th>
-                <th>Vehículo</th>
-                <th>Placa</th>
-                <th>Órdenes</th>
-                <th>Total</th>
+                <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Cliente</th>
+                <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Vehículo</th>
+                <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Placa</th>
+                <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Órdenes</th>
+                <th className="px-3 py-2.5 border-b-2 border-border-main text-gray-400 font-semibold text-xs uppercase tracking-wider bg-surface/95">Total</th>
               </tr>
             </thead>
             <tbody>
               {reporte.vehiculos && reporte.vehiculos.length > 0 ? (
                 reporte.vehiculos.map(v => (
-                  <tr key={v.id_vehiculo}>
-                    <td>{v.cliente_nombre || 'Sin cliente'}</td>
-                    <td>{v.marca} {v.modelo}</td>
-                    <td><strong>{v.placa}</strong></td>
-                    <td>{v.ordenes}</td>
-                    <td>${parseFloat(v.total || 0).toFixed(2)}</td>
+                  <tr key={v.id_vehiculo} className="hover:bg-primary/[0.03]">
+                    <td className="px-3 py-2 border-b border-border-main text-sm transition-colors duration-150">{v.cliente_nombre || 'Sin cliente'}</td>
+                    <td className="px-3 py-2 border-b border-border-main text-sm transition-colors duration-150">{v.marca} {v.modelo}</td>
+                    <td className="px-3 py-2 border-b border-border-main text-sm transition-colors duration-150"><strong>{v.placa}</strong></td>
+                    <td className="px-3 py-2 border-b border-border-main text-sm transition-colors duration-150">{v.ordenes}</td>
+                    <td className="px-3 py-2 border-b border-border-main text-sm transition-colors duration-150">${parseFloat(v.total || 0).toFixed(2)}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
-                    No hay órdenes en el período seleccionado
-                  </td>
+                  <td colSpan={5} className="text-center text-gray-400 py-2">No hay órdenes en el período seleccionado</td>
                 </tr>
               )}
               {reporte.vehiculos && reporte.vehiculos.length > 0 && (
-                <tr className="reporte-total-row">
-                  <td colSpan={4} style={{ textAlign: 'right', fontWeight: 700 }}>Total:</td>
-                  <td style={{ fontWeight: 700 }}>${parseFloat(reporte.ingresos_totales || 0).toFixed(2)}</td>
+                <tr className="bg-primary/10">
+                  <td colSpan={4} className="text-right font-bold px-3 py-2 border-b border-border-main text-sm">Total:</td>
+                  <td className="font-bold px-3 py-2 border-b border-border-main text-sm">${parseFloat(reporte.ingresos_totales || 0).toFixed(2)}</td>
                 </tr>
               )}
             </tbody>

@@ -79,27 +79,28 @@ function RepuestoFormPage() {
   }
 
   return (
-    <section className="cliente-form-page">
-      <h1>{isEditMode ? 'Editar repuesto' : 'Nuevo repuesto'}</h1>
+    <section className="bg-surface backdrop-blur-sm border border-border-main rounded-xl p-5 px-6 shadow">
+      <h1 className="text-white font-bold text-[clamp(1.15rem,2vw,1.4rem)] m-0 mb-6">{isEditMode ? 'Editar repuesto' : 'Nuevo repuesto'}</h1>
 
       {loading ? (
-        <p>Cargando datos...</p>
+        <p className="text-gray-400">Cargando datos...</p>
       ) : (
         <form onSubmit={handleSubmit}>
-          <div className="cliente-form-grid">
-            <label className="form-group">
-              <span>Código</span>
+          <div className="grid grid-cols-2 gap-3.5">
+            <label className="flex flex-col gap-1">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Código</span>
               <input
                 type="text"
                 name="codigo"
                 value={form.codigo}
                 onChange={handleChange}
                 placeholder="Ej. REP-001"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border placeholder:text-gray-500"
               />
             </label>
 
-            <label className="form-group">
-              <span>Nombre *</span>
+            <label className="flex flex-col gap-1">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Nombre *</span>
               <input
                 type="text"
                 name="nombre"
@@ -107,22 +108,24 @@ function RepuestoFormPage() {
                 onChange={handleChange}
                 required
                 placeholder="Ej. Filtro de aceite"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border placeholder:text-gray-500"
               />
             </label>
 
-            <label className="form-group" style={{ gridColumn: '1 / -1' }}>
-              <span>Descripción</span>
+            <label className="flex flex-col gap-1 col-span-full">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Descripción</span>
               <input
                 type="text"
                 name="descripcion"
                 value={form.descripcion}
                 onChange={handleChange}
                 placeholder="Descripción opcional del repuesto"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border placeholder:text-gray-500"
               />
             </label>
 
-            <label className="form-group">
-              <span>Precio *</span>
+            <label className="flex flex-col gap-1">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Precio *</span>
               <input
                 type="number"
                 name="precio"
@@ -132,11 +135,12 @@ function RepuestoFormPage() {
                 min="0.01"
                 step="0.01"
                 placeholder="0.00"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border placeholder:text-gray-500"
               />
             </label>
 
-            <label className="form-group">
-              <span>Stock</span>
+            <label className="flex flex-col gap-1">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Stock</span>
               <input
                 type="number"
                 name="stock"
@@ -144,11 +148,12 @@ function RepuestoFormPage() {
                 onChange={handleChange}
                 min="0"
                 placeholder="0"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border placeholder:text-gray-500"
               />
             </label>
 
-            <label className="form-group">
-              <span>Stock mínimo</span>
+            <label className="flex flex-col gap-1">
+              <span className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider">Stock mínimo</span>
               <input
                 type="number"
                 name="stock_minimo"
@@ -156,23 +161,24 @@ function RepuestoFormPage() {
                 onChange={handleChange}
                 min="0"
                 placeholder="5"
+                className="w-full h-10 px-3 rounded-lg border border-border-strong bg-bg-main/80 text-white text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20 box-border placeholder:text-gray-500"
               />
             </label>
           </div>
 
-          <div className="form-actions">
-            <button type="submit" disabled={submitting}>
+          <div className="flex gap-3 justify-end flex-wrap mt-1 pt-4 border-t border-border-main">
+            <button type="submit" disabled={submitting} className="px-5 py-2 rounded-full font-bold text-sm bg-gradient-to-r from-primary to-primary-strong text-bg-deep cursor-pointer border-none shadow transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg whitespace-nowrap">
               {submitting ? 'Guardando...' : isEditMode ? 'Actualizar repuesto' : 'Crear repuesto'}
             </button>
-            <button type="button" className="cancel-button" onClick={() => navigate('/repuestos')}>
+            <button type="button" className="px-5 py-2 rounded-full font-bold text-sm bg-transparent text-gray-400 border border-border-main cursor-pointer transition-all duration-200 hover:bg-surface-2 hover:text-white hover:border-border-strong whitespace-nowrap" onClick={() => navigate('/repuestos')}>
               Volver
             </button>
           </div>
         </form>
       )}
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="px-3.5 py-2.5 rounded-lg text-sm mt-3 bg-danger/10 text-danger border border-danger/20">{errorMessage}</p>}
+      {successMessage && <p className="px-3.5 py-2.5 rounded-lg text-sm mt-3 bg-success/10 text-success border border-success/20">{successMessage}</p>}
     </section>
   )
 }
